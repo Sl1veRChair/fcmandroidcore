@@ -3,11 +3,9 @@ package me.carda.awesome_notifications_fcm.core.background;
 import android.content.Context;
 import android.content.Intent;
 
-import me.carda.awesome_notifications.AwesomeNotificationsFlutterExtension;
 import me.carda.awesome_notifications.core.exceptions.AwesomeNotificationsException;
 import me.carda.awesome_notifications.core.exceptions.ExceptionCode;
 import me.carda.awesome_notifications.core.exceptions.ExceptionFactory;
-import me.carda.awesome_notifications_fcm.AwesomeNotificationsFcmFlutterExtension;
 
 public abstract class FcmBackgroundExecutor {
     private static final String TAG = "FcmBackgroundExecutor";
@@ -37,9 +35,6 @@ public abstract class FcmBackgroundExecutor {
     ) throws AwesomeNotificationsException {
 
         try {
-            AwesomeNotificationsFlutterExtension.initialize();
-            AwesomeNotificationsFcmFlutterExtension.initialize();
-
             if(awesomeBackgroundExecutorClass == null)
                 throw ExceptionFactory
                         .getInstance()

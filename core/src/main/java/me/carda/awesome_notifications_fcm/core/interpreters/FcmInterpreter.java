@@ -2,6 +2,8 @@ package me.carda.awesome_notifications_fcm.core.interpreters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -35,7 +37,6 @@ import me.carda.awesome_notifications.core.threads.NotificationScheduler;
 import me.carda.awesome_notifications.core.threads.NotificationSender;
 import me.carda.awesome_notifications.core.utils.IntegerUtils;
 import me.carda.awesome_notifications.core.utils.StringUtils;
-import me.carda.awesome_notifications_fcm.BuildConfig;
 import me.carda.awesome_notifications_fcm.core.FcmDefinitions;
 import me.carda.awesome_notifications_fcm.core.broadcasters.broadcasters.FcmBroadcaster;
 import me.carda.awesome_notifications_fcm.core.builders.FcmNotificationBuilder;
@@ -141,8 +142,21 @@ public class FcmInterpreter {
 
                 notificationModel.validate(context);
 
+                boolean isDebuggable = false;
+                try {
+                    isDebuggable = ( 0 != (
+                            context
+                            .getPackageManager()
+                            .getApplicationInfo(
+                                    "me.carda.awesome_notifications_fcm",
+                                    ApplicationInfo.FLAG_DEBUGGABLE)
+                            .flags & ApplicationInfo.FLAG_DEBUGGABLE ) );
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+
                 if(
-                    !BuildConfig.DEBUG &&
+                    !isDebuggable &&
                     !LicenseManager
                         .getInstance()
                         .isLicenseKeyValid(context)
@@ -212,7 +226,7 @@ public class FcmInterpreter {
             @NonNull NotificationThreadCompletionHandler completionHandler
     ) throws AwesomeNotificationsException {
         if(AwesomeNotifications.debug)
-            io.flutter.Log.d(TAG, "New push notification received");
+            Logger.d(TAG, "New push notification received");
 
         if(notificationModel.schedule == null)
             NotificationSender
