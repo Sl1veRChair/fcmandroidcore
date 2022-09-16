@@ -148,7 +148,7 @@ public class FcmInterpreter {
                             context
                             .getPackageManager()
                             .getApplicationInfo(
-                                    "me.carda.awesome_notifications_fcm",
+                                    context.getPackageName(),
                                     ApplicationInfo.FLAG_DEBUGGABLE)
                             .flags & ApplicationInfo.FLAG_DEBUGGABLE ) );
                 } catch (PackageManager.NameNotFoundException e) {
