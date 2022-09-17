@@ -39,7 +39,7 @@ def getRootProjectExtOrCoreProperty(name, firebaseCoreProject) {
 }
 
 dependencies {
-    implementation 'me.carda:androidcore:0.0.1'
+    implementation 'me.carda:androidcore:main-SNAPSHOT'
 
     implementation 'com.google.android.gms:play-services-base:18.1.0'
 
