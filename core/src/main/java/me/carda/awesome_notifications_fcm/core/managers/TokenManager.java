@@ -84,8 +84,8 @@ public class TokenManager {
                                             "Fetching FCM registration token failed",
                                             ExceptionCode.DETAILED_REQUIRED_ARGUMENTS+".fcm.token");
 
-                        tokenListener.onNewFcmTokenReceived(token);
                         tokenListener.onNewNativeTokenReceived(token);
+                        tokenListener.onNewFcmTokenReceived(token);
                     }
                 });
     }

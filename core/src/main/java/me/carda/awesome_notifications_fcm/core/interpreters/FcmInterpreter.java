@@ -148,7 +148,7 @@ public class FcmInterpreter {
                             context
                             .getPackageManager()
                             .getApplicationInfo(
-                                    context.getPackageName(),
+                                    AwesomeNotifications.getPackageName(context),
                                     ApplicationInfo.FLAG_DEBUGGABLE)
                             .flags & ApplicationInfo.FLAG_DEBUGGABLE ) );
                 } catch (PackageManager.NameNotFoundException e) {

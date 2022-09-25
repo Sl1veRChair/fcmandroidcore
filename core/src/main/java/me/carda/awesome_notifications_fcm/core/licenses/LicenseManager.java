@@ -12,6 +12,7 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
 
+import me.carda.awesome_notifications.core.AwesomeNotifications;
 import me.carda.awesome_notifications.core.exceptions.AwesomeNotificationsException;
 import me.carda.awesome_notifications.core.utils.StringUtils;
 import me.carda.awesome_notifications_fcm.core.managers.FcmDefaultsManager;
@@ -44,7 +45,7 @@ public final class LicenseManager {
                 return false;
             else
                 return assignerVerify(
-                        context.getPackageName(),
+                        AwesomeNotifications.getPackageName(context),
                         publicKey,
                         Base64.decode(licenseKey, Base64.DEFAULT));
 

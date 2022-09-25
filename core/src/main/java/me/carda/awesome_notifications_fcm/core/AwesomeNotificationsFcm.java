@@ -13,6 +13,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.lang.ref.WeakReference;
 
+import me.carda.awesome_notifications.core.AwesomeNotifications;
 import me.carda.awesome_notifications.core.AwesomeNotificationsExtension;
 import me.carda.awesome_notifications.core.Definitions;
 import me.carda.awesome_notifications.core.broadcasters.receivers.AwesomeEventsReceiver;
@@ -187,7 +188,7 @@ public class AwesomeNotificationsFcm
             Logger.i(TAG,
                     "You need to insert a valid license key to use Awesome Notification's companion " +
                             "plugin in release mode without watermarks (application id \""+
-                            context.getPackageName()+
+                            AwesomeNotifications.getPackageName(context)+
                             "\"). To know more about it, please " +
                             "visit www.carda.me/awesome-notifications#prices");
         else

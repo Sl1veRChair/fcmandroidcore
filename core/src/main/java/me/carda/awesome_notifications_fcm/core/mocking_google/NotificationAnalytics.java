@@ -27,6 +27,7 @@ import com.google.firebase.messaging.reporting.MessagingClientEventExtension;
 
 import java.util.concurrent.ExecutionException;
 
+import me.carda.awesome_notifications.core.AwesomeNotifications;
 import me.carda.awesome_notifications.core.utils.StringUtils;
 
 
@@ -122,7 +123,7 @@ public class NotificationAnalytics {
             if (packageManager != null) {
                 ApplicationInfo applicationInfo;
                 try {
-                    applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+                    applicationInfo = packageManager.getApplicationInfo(AwesomeNotifications.getPackageName(context), PackageManager.GET_META_DATA);
                 } catch (Exception var6) {
                     return false;
                 }
@@ -346,7 +347,7 @@ public class NotificationAnalytics {
 
     @NonNull
     static String getPackageName() {
-        return FirebaseApp.getInstance().getApplicationContext().getPackageName();
+        return AwesomeNotifications.getPackageName(FirebaseApp.getInstance().getApplicationContext());
     }
 
     @NonNull
