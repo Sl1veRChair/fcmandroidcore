@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'me.carda.awesome_notifications_fcm.core'
-version '0.7.0-alpha.4'
+version '0.7.0-alpha.5'
 
 android {
     compileSdk 33
@@ -19,6 +19,10 @@ android {
 
     buildTypes {
         release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        profile {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -39,7 +43,7 @@ def getRootProjectExtOrCoreProperty(name, firebaseCoreProject) {
 }
 
 dependencies {
-    implementation 'me.carda:androidcore:0.7.0-alpha.3'
+    implementation 'me.carda:androidcore:0.7.0-alpha.5'
 
     implementation 'com.google.android.gms:play-services-base:18.1.0'
 
@@ -80,7 +84,7 @@ afterEvaluate {
 
                 groupId = 'me.carda'
                 artifactId = 'AwnFcmAndroidCore'
-                version = '0.7.0-alpha.4'
+                version = '0.7.0-alpha.5'
             }
         }
     }
