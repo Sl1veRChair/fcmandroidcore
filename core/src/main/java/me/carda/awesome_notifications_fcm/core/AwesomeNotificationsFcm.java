@@ -125,7 +125,7 @@ public class AwesomeNotificationsFcm
     ///      INTERFACE INITIALIZATIONS
     // *****************************************************************
 
-    public boolean enableFirebase() {
+    public boolean enableFirebaseMessaging() {
         if (firebaseEnabled) return true;
 
         if (debug)

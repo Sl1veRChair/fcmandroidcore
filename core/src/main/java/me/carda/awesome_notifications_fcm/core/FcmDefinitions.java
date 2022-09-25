@@ -41,7 +41,8 @@ public interface FcmDefinitions {
     String CHANNEL_METHOD_SILENT_CALLBACK = "silentCallbackReference";
     String CHANNEL_METHOD_PUSH_NEXT_DATA = "pushNext";
     String CHANNEL_METHOD_GET_FCM_TOKEN = "getFirebaseToken";
-    String CHANNEL_METHOD_NEW_FCM_TOKEN = "newToken";
+    String CHANNEL_METHOD_NEW_FCM_TOKEN = "newFcmToken";
+    String CHANNEL_METHOD_NEW_NATIVE_TOKEN = "newNativeToken";
     String CHANNEL_METHOD_IS_FCM_AVAILABLE = "isFirebaseAvailable";
     String CHANNEL_METHOD_SUBSCRIBE_TOPIC = "subscribeTopic";
     String CHANNEL_METHOD_UNSUBSCRIBE_TOPIC = "unsubscribeTopic";

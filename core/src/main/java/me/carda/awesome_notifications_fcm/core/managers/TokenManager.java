@@ -34,19 +34,28 @@ public class TokenManager {
 
     public void setLastToken(@NonNull String lastToken) {
        this.lastToken = lastToken;
+       if(!this.recovered) return;
 
-       if(this.recovered)
-           AwesomeFcmEventsReceiver
+        AwesomeFcmEventsReceiver
                 .getInstance()
-                .addNewTokenEvent(lastToken);
+                .addNewFcmTokenEvent(lastToken);
+
+        AwesomeFcmEventsReceiver
+                .getInstance()
+                .addNewNativeTokenEvent(lastToken);
     }
 
     public void recoverLostFcmToken(){
         recovered = true;
-        if (this.lastToken != null)
-            AwesomeFcmEventsReceiver
-                    .getInstance()
-                    .addNewTokenEvent(lastToken);
+        if (this.lastToken == null) return;
+
+        AwesomeFcmEventsReceiver
+                .getInstance()
+                .addNewFcmTokenEvent(lastToken);
+
+        AwesomeFcmEventsReceiver
+                .getInstance()
+                .addNewNativeTokenEvent(lastToken);
     }
 
     public void requestNewFcmToken(AwesomeFcmTokenListener tokenListener){
@@ -76,6 +85,7 @@ public class TokenManager {
                                             ExceptionCode.DETAILED_REQUIRED_ARGUMENTS+".fcm.token");
 
                         tokenListener.onNewFcmTokenReceived(token);
+                        tokenListener.onNewNativeTokenReceived(token);
                     }
                 });
     }

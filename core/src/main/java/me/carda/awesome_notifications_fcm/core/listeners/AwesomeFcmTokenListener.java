@@ -4,4 +4,5 @@ import androidx.annotation.NonNull;
 
 public interface AwesomeFcmTokenListener {
     public void onNewFcmTokenReceived(@NonNull String token);
+    public void onNewNativeTokenReceived(@NonNull String token);
 }

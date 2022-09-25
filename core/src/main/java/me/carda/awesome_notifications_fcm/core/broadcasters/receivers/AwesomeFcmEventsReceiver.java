@@ -83,12 +83,20 @@ public class AwesomeFcmEventsReceiver {
 
     // ********************************************************
 
-    public void addNewTokenEvent(String token) {
+    public void addNewFcmTokenEvent(String token) {
         if(AwesomeNotifications.debug && notificationTokenListeners.isEmpty())
-            Logger.e(TAG, "New token event ignored, as there is no listeners waiting for new fcm events");
+            Logger.e(TAG, "New fcm token event ignored, as there is no listeners waiting for new fcm events");
 
         for (AwesomeFcmTokenListener listener : notificationTokenListeners)
             listener.onNewFcmTokenReceived(token);
+    }
+
+    public void addNewNativeTokenEvent(String token) {
+        if(AwesomeNotifications.debug && notificationTokenListeners.isEmpty())
+            Logger.e(TAG, "New native token event ignored, as there is no listeners waiting for new fcm events");
+
+        for (AwesomeFcmTokenListener listener : notificationTokenListeners)
+            listener.onNewNativeTokenReceived(token);
     }
 
     public void addNewSilentDataEvent(SilentDataModel silentData) throws AwesomeNotificationsException {
