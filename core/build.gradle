@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'me.carda.awesome_notifications_fcm.core'
-version '0.0.2-alpha.3'
+version '0.7.0-alpha.3'
 
 android {
     compileSdk 33
@@ -80,7 +80,7 @@ afterEvaluate {
 
                 groupId = 'me.carda'
                 artifactId = 'AwnFcmAndroidCore'
-                version = '0.0.2-alpha.3'
+                version = '0.7.0-alpha.3'
             }
         }
     }
