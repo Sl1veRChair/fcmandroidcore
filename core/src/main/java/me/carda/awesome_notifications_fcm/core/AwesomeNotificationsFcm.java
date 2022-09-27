@@ -26,6 +26,7 @@ import me.carda.awesome_notifications.core.listeners.AwesomeNotificationEventLis
 import me.carda.awesome_notifications.core.logs.Logger;
 import me.carda.awesome_notifications.core.models.returnedData.ActionReceived;
 import me.carda.awesome_notifications.core.models.returnedData.NotificationReceived;
+import me.carda.awesome_notifications_fcm.core.background.FcmBackgroundExecutor;
 import me.carda.awesome_notifications_fcm.core.broadcasters.receivers.AwesomeFcmEventsReceiver;
 import me.carda.awesome_notifications_fcm.core.licenses.LicenseManager;
 import me.carda.awesome_notifications_fcm.core.listeners.AwesomeFcmSilentListener;
@@ -34,6 +35,7 @@ import me.carda.awesome_notifications_fcm.core.managers.FcmDefaultsManager;
 import me.carda.awesome_notifications_fcm.core.managers.TokenManager;
 import me.carda.awesome_notifications_fcm.core.mocking_google.NotificationAnalytics;
 import me.carda.awesome_notifications_fcm.core.services.AwesomeFcmService;
+import me.carda.awesome_notifications_fcm.core.services.FcmSilentService;
 
 public class AwesomeNotificationsFcm
     implements
@@ -68,7 +70,8 @@ public class AwesomeNotificationsFcm
     public static AwesomeNotificationsExtension awesomeFcmExtensions;
     public static boolean areExtensionsLoaded = false;
 
-    public static Class awesomeFcmServiceClass;
+    public static Class<? extends AwesomeFcmService> awesomeFcmServiceClass;
+    public static Class<? extends FcmBackgroundExecutor> awesomeFcmBackgroundExecutorClass;
 
     public static void initialize(
             @NonNull Context context

@@ -49,6 +49,7 @@ public abstract class AwesomeFcmService extends FirebaseMessagingService {
             AwesomeNotifications.initialize(this);
             AwesomeNotificationsFcm.initialize(this);
 
+
             String action = intent.getAction();
             if (
                     !"com.google.android.c2dm.intent.RECEIVE".equals(action) &&

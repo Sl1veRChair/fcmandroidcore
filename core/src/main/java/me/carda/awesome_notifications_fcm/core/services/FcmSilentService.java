@@ -15,19 +15,13 @@ import me.carda.awesome_notifications_fcm.core.AwesomeNotificationsFcm;
 import me.carda.awesome_notifications_fcm.core.background.FcmBackgroundExecutor;
 import me.carda.awesome_notifications_fcm.core.managers.FcmDefaultsManager;
 
-public abstract class FcmSilentService extends JobIntentService {
+public class FcmSilentService extends JobIntentService {
     private static final String TAG = "FcmSilentService";
-
-    public abstract void initializeExternalPlugins(Context context) throws Exception;
 
     @Override
     protected void onHandleWork(@NonNull final Intent intent) {
         Logger.d(TAG, "A new silent background service has started");
         try {
-            initializeExternalPlugins(this);
-            AwesomeNotifications.initialize(this);
-            AwesomeNotificationsFcm.initialize(this);
-
             Long dartCallbackHandle = getDartCallbackDispatcher(this);
             if (dartCallbackHandle == 0L) {
                 ExceptionFactory
