@@ -193,7 +193,7 @@ public class AwesomeNotificationsFcm
                             "plugin in release mode without watermarks (application id \""+
                             AwesomeNotifications.getPackageName(context)+
                             "\"). To know more about it, please " +
-                            "visit www.carda.me/awesome-notifications#prices");
+                            "visit https://www.awesome-notifications.carda.me#prices");
         else
             Logger.d(TAG, "Awesome FCM License key validated");
 
@@ -231,7 +231,7 @@ public class AwesomeNotificationsFcm
                             TAG,
                             ExceptionCode.CODE_INVALID_ARGUMENTS,
                             "Firebase service is not available (check if you have google-services.json file)",
-                            ExceptionCode.DETAILED_INVALID_ARGUMENTS+".fcm.subscribe.topicName");
+                            ExceptionCode.DETAILED_INVALID_ARGUMENTS+".fcm.assertFirebaseServiceEnabled");
     }
 
     public void subscribeOnFcmTopic(String topicReference) throws AwesomeNotificationsException {
