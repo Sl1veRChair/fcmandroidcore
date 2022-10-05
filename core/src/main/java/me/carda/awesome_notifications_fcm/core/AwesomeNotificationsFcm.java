@@ -189,8 +189,8 @@ public class AwesomeNotificationsFcm
                 .getInstance()
                 .isLicenseKeyValid(context))
             Logger.i(TAG,
-                    "You need to insert a valid license key to use Awesome Notification's companion " +
-                            "plugin in release mode without watermarks (application id \""+
+                    "You need to insert a valid license key to use Awesome Notification's FCM " +
+                            "plugin in release mode without watermarks (application id: \""+
                             AwesomeNotifications.getPackageName(context)+
                             "\"). To know more about it, please " +
                             "visit https://www.awesome-notifications.carda.me#prices");
