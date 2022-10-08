@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'me.carda.awesome_notifications_fcm.core'
-version '0.7.0-alpha.9'
+version '0.7.0-alpha.10'
 
 android {
     compileSdk 33
@@ -43,7 +43,7 @@ def getRootProjectExtOrCoreProperty(name, firebaseCoreProject) {
 }
 
 dependencies {
-    implementation 'me.carda:androidcore:0.7.0'
+    implementation 'me.carda:androidcore:0.7.1'
 
     implementation 'com.google.android.gms:play-services-base:18.1.0'
 
@@ -56,13 +56,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-common'
 
-    def mockitoVersion = "3.9.0"
-
     // Required for instrumented tests
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    testImplementation "org.mockito:mockito-core:$mockitoVersion"
-    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    testImplementation 'org.mockito:mockito-core:4.8.0'
+    testImplementation 'org.mockito:mockito-inline:4.7.0'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test:runner:1.4.0'
@@ -84,7 +82,7 @@ afterEvaluate {
 
                 groupId = 'me.carda'
                 artifactId = 'AwnFcmAndroidCore'
-                version = '0.7.0-alpha.9'
+                version = '0.7.0-alpha.10'
             }
         }
     }
