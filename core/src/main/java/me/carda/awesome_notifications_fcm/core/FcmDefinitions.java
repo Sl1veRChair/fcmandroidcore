@@ -50,5 +50,7 @@ public interface FcmDefinitions {
     String CHANNEL_METHOD_DART_CALLBACK = "dartCallbackReference";
     String CHANNEL_METHOD_SHUTDOWN_DART = "shutdown";
 
+    String NOTIFICATION_MODEL_ANDROID = "Android";
+    String NOTIFICATION_MODEL_IOS = "iOS";
     String NOTIFICATION_FCM_DATA = "data";
 }

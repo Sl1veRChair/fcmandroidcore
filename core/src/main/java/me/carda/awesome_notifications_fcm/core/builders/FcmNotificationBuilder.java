@@ -62,12 +62,22 @@ public class FcmNotificationBuilder {
     ) throws AwesomeNotificationsException {
 
         Map<String, String> remoteData = remoteMessage.getData();
-        Map<String, Object> awesomeData;
+        Map<String, Object> awesomeData, androidCustomData = null;
 
-        if(remoteData.containsKey(Definitions.NOTIFICATION_MODEL_CONTENT))
+        remoteData.remove(FcmDefinitions.NOTIFICATION_MODEL_IOS);
+
+        if(remoteData.containsKey(Definitions.NOTIFICATION_MODEL_CONTENT)) {
+            if (remoteData.containsKey(FcmDefinitions.NOTIFICATION_MODEL_ANDROID)) {
+                androidCustomData = JsonUtils.fromJson(remoteData.get(FcmDefinitions.NOTIFICATION_MODEL_ANDROID));
+            }
             awesomeData = receiveAwesomeNotificationContent(notificationId, remoteMessage, remoteData);
-        else
+            if (androidCustomData != null) {
+                awesomeData = new HashMap<String, Object>(MapUtils.deepMerge(awesomeData, androidCustomData));
+            }
+        }
+        else {
             awesomeData = receiveStandardNotificationContent(notificationId, context, remoteMessage);
+        }
 
         NotificationModel notificationModel = new NotificationModel();
         return notificationModel.fromMap(awesomeData);
@@ -79,18 +89,21 @@ public class FcmNotificationBuilder {
             @NonNull Map<String, String> remoteData
     ) throws AwesomeNotificationsException {
         RemoteMessage.Notification remoteNotification = remoteMessage.getNotification();
+        Map<String, String> localRemoteData = new HashMap<>(remoteData);
 
         Map<String, Object> parsedNotificationContent =
-                extractNotificationData(Definitions.NOTIFICATION_MODEL_CONTENT, remoteData);
+                extractNotificationData(Definitions.NOTIFICATION_MODEL_CONTENT, localRemoteData);
         Map<String, Object> parsedSchedule =
-                extractNotificationData(Definitions.NOTIFICATION_MODEL_SCHEDULE, remoteData);
+                extractNotificationData(Definitions.NOTIFICATION_MODEL_SCHEDULE, localRemoteData);
         List<Map<String, Object>> parsedActionButtons =
-                extractNotificationDataList(Definitions.NOTIFICATION_MODEL_BUTTONS, remoteData);
+                extractNotificationDataList(Definitions.NOTIFICATION_MODEL_BUTTONS, localRemoteData);
 
         Map<String, Object> originalNotificationData =
                 extractFcmNotificationIntoAwesome(notificationId, remoteMessage, remoteNotification);
 
-        parsedNotificationContent.putAll(originalNotificationData);
+        parsedNotificationContent = MapUtils.deepMerge(
+                parsedNotificationContent,
+                originalNotificationData);
 
         Map<String, Object> parsedRemoteMessage = new HashMap<>();
         parsedRemoteMessage.put(Definitions.NOTIFICATION_MODEL_CONTENT, parsedNotificationContent);
@@ -178,7 +191,15 @@ public class FcmNotificationBuilder {
             }
         }
 
-        parsedData.put(Definitions.NOTIFICATION_PAYLOAD, remoteMessage.getData());
+        Map<String, String> payload = remoteMessage.getData();
+
+        payload.remove(Definitions.NOTIFICATION_MODEL_CONTENT);
+        payload.remove(Definitions.NOTIFICATION_MODEL_SCHEDULE);
+        payload.remove(Definitions.NOTIFICATION_MODEL_BUTTONS);
+        payload.remove(FcmDefinitions.NOTIFICATION_MODEL_ANDROID);
+        payload.remove(FcmDefinitions.NOTIFICATION_MODEL_IOS);
+
+        parsedData.put(Definitions.NOTIFICATION_PAYLOAD, payload);
 
         return parsedData;
     }

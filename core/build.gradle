@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'me.carda.awesome_notifications_fcm.core'
-version '0.7.0-alpha.10'
+version '0.7.1'
 
 android {
     compileSdk 33
@@ -43,7 +43,8 @@ def getRootProjectExtOrCoreProperty(name, firebaseCoreProject) {
 }
 
 dependencies {
-    implementation 'me.carda:androidcore:0.7.1'
+    implementation 'me.carda:androidcore:0.7.2'
+//    implementation project(':awn_core')
 
     implementation 'com.google.android.gms:play-services-base:18.1.0'
 
@@ -82,7 +83,7 @@ afterEvaluate {
 
                 groupId = 'me.carda'
                 artifactId = 'AwnFcmAndroidCore'
-                version = '0.7.0-alpha.10'
+                version = '0.7.1'
             }
         }
     }
