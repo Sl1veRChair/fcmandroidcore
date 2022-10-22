@@ -30,8 +30,8 @@ public interface FcmDefinitions {
 
     String DEBUG_MODE = "debug";
     String LICENSE_KEY = "licenseKey";
-    String SILENT_HANDLE = "awesomeSilentHandle";
-    String DART_BG_HANDLE = "awesomeDartBGHandle";
+    String SILENT_HANDLE = "fcmSilentHandle";
+    String DART_BG_HANDLE = "fcmDartBGHandle";
 
     String NOTIFICATION_TOPIC = "topic";
 
