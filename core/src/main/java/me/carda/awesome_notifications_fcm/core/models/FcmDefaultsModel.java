@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import me.carda.awesome_notifications.core.Definitions;
@@ -17,28 +18,27 @@ public class FcmDefaultsModel extends AbstractModel {
 
     public String silentDataCallback = "0";
     public String reverseDartCallback = "0";
-    public String licenseKey;
+    public List<String> licenseKeys;
     public String backgroundHandleClass;
 
     public FcmDefaultsModel(){}
 
     public FcmDefaultsModel(
-            @NonNull String licenseKey,
+            @NonNull List<String> licenseKey,
             @Nullable Long reverseDartCallback,
             @Nullable Long silentDataCallback
     ){
-        this.licenseKey = licenseKey;
+        this.licenseKeys = licenseKey;
         this.silentDataCallback = silentDataCallback == null ? "0" : silentDataCallback.toString();
         this.reverseDartCallback = reverseDartCallback == null ? "0" : reverseDartCallback.toString();
     }
 
     @Override
     public FcmDefaultsModel fromMap(Map<String, Object> arguments) {
-        licenseKey            = getValueOrDefault(arguments, FcmDefinitions.LICENSE_KEY, String.class, null);
         silentDataCallback    = getValueOrDefault(arguments, FcmDefinitions.SILENT_HANDLE, String.class, "0");
         reverseDartCallback   = getValueOrDefault(arguments, FcmDefinitions.DART_BG_HANDLE, String.class, "0");
         backgroundHandleClass = getValueOrDefault(arguments, Definitions.NOTIFICATION_BG_HANDLE_CLASS, String.class, null);
-
+        licenseKeys           = getValueOrDefault(arguments, FcmDefinitions.LICENSE_KEYS, List.class, null);
         return this;
     }
 
@@ -46,7 +46,7 @@ public class FcmDefaultsModel extends AbstractModel {
     public Map<String, Object> toMap() {
         Map<String, Object> dataMap = new HashMap<>();
 
-        putDataOnSerializedMap(FcmDefinitions.LICENSE_KEY, dataMap, licenseKey);
+        putDataOnSerializedMap(FcmDefinitions.LICENSE_KEYS, dataMap, licenseKeys);
         putDataOnSerializedMap(FcmDefinitions.SILENT_HANDLE, dataMap, silentDataCallback);
         putDataOnSerializedMap(FcmDefinitions.DART_BG_HANDLE, dataMap, reverseDartCallback);
         putDataOnSerializedMap(Definitions.NOTIFICATION_BG_HANDLE_CLASS, dataMap, backgroundHandleClass);

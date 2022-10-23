@@ -29,7 +29,7 @@ public interface FcmDefinitions {
     String EXTRA_SILENT_DATA = "silentData";
 
     String DEBUG_MODE = "debug";
-    String LICENSE_KEY = "licenseKey";
+    String LICENSE_KEYS = "licenseKeys";
     String SILENT_HANDLE = "fcmSilentHandle";
     String DART_BG_HANDLE = "fcmDartBGHandle";
 

@@ -5,6 +5,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.List;
+
 import me.carda.awesome_notifications.core.AwesomeNotificationsExtension;
 import me.carda.awesome_notifications.core.exceptions.AwesomeNotificationsException;
 import me.carda.awesome_notifications.core.managers.SharedManager;
@@ -27,13 +29,13 @@ public final class FcmDefaultsManager {
 
     public static void saveDefault(
             @NonNull Context context,
-            @NonNull String licenseKey,
+            @NonNull List<String> licenseKeys,
             @Nullable Long dartCallback,
             @Nullable Long silentCallback
     ) throws AwesomeNotificationsException {
         FcmDefaultsModel defaults = getDefaults(context);
 
-        defaults.licenseKey = licenseKey;
+        defaults.licenseKeys = licenseKeys;
         defaults.reverseDartCallback = dartCallback == null ? null : dartCallback.toString();
         defaults.silentDataCallback = silentCallback == null ? null : silentCallback.toString();
 
@@ -59,9 +61,9 @@ public final class FcmDefaultsManager {
         return (defaults.reverseDartCallback != null) ? Long.parseLong(defaults.reverseDartCallback) : 0L;
     }
 
-    public static String getLicenseKey(Context context) throws AwesomeNotificationsException {
+    public static List<String> getLicenseKeys(Context context) throws AwesomeNotificationsException {
         FcmDefaultsModel defaults = getDefaults(context);
-        return StringUtils.getInstance().isNullOrEmpty(defaults.licenseKey) ? "" : defaults.licenseKey;
+        return defaults.licenseKeys;
     }
 
     public static void commitChanges(Context context) throws AwesomeNotificationsException {

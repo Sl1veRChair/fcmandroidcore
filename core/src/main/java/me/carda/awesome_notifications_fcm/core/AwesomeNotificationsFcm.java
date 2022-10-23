@@ -12,6 +12,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 import me.carda.awesome_notifications.core.AwesomeNotifications;
 import me.carda.awesome_notifications.core.AwesomeNotificationsExtension;
@@ -157,7 +158,7 @@ public class AwesomeNotificationsFcm
     }
 
     public boolean initialize(
-            String licenseKey,
+            List<String> licenseKeys,
             long dartCallback,
             long silentCallback,
             boolean debug
@@ -168,7 +169,7 @@ public class AwesomeNotificationsFcm
         FcmDefaultsManager
                 .saveDefault(
                         context,
-                        licenseKey,
+                        licenseKeys,
                         dartCallback,
                         silentCallback);
 
