@@ -2,6 +2,8 @@ package me.carda.awesome_notifications_fcm.core;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -186,23 +188,56 @@ public class AwesomeNotificationsFcm
         if(!isGooglePlayServicesAvailable(context))
             Logger.i(TAG,"Google play services are not available on this device.");
 
-        if(!LicenseManager
-                .getInstance()
-                .isLicenseKeyValid(context))
-            Logger.i(TAG,
-                    "You need to insert a valid license key to use Awesome Notification's FCM " +
-                            "plugin in release mode without watermarks (application id: \""+
-                            AwesomeNotifications.getPackageName(context)+
-                            "\"). To know more about it, please " +
-                            "visit https://www.awesome-notifications.carda.me#prices");
-        else
-            Logger.d(TAG, "Awesome FCM License key validated");
-
         TokenManager
                 .getInstance()
                 .recoverLostFcmToken();
 
         return true;
+    }
+
+    public void printValidationTest() throws AwesomeNotificationsException {
+        Context context = wContext.get();
+
+        if(!LicenseManager
+                .getInstance()
+                .isLicenseKeyValid(context)) {
+
+            boolean isDebuggable = false;
+            try {
+                isDebuggable = ( 0 != (
+                        context
+                                .getPackageManager()
+                                .getApplicationInfo(
+                                        AwesomeNotifications.getPackageName(context),
+                                        ApplicationInfo.FLAG_DEBUGGABLE)
+                                .flags & ApplicationInfo.FLAG_DEBUGGABLE ) );
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            String licenseMessage =
+                    "You need to insert a valid license key to use Awesome Notification's FCM " +
+                            "plugin in release mode without watermarks (application id: \"" +
+                            AwesomeNotifications.getPackageName(context) +
+                            "\"). To know more about it, please " +
+                            "visit https://www.awesome-notifications.carda.me#prices";
+
+
+            if(!isDebuggable) {
+                Logger.i(TAG, licenseMessage);
+            }
+            else {
+                throw ExceptionFactory
+                        .getInstance()
+                        .createNewAwesomeException(
+                                TAG,
+                                ExceptionCode.CODE_INVALID_ARGUMENTS,
+                                licenseMessage,
+                                ExceptionCode.DETAILED_INVALID_ARGUMENTS+".fcm.invalidLicenseKey");
+            }
+        }
+        else
+            Logger.d(TAG, "Awesome FCM License key validated");
     }
 
     public boolean isGooglePlayServicesAvailable(Context context){
