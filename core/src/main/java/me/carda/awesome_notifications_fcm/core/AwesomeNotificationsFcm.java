@@ -223,7 +223,7 @@ public class AwesomeNotificationsFcm
                             "visit https://www.awesome-notifications.carda.me#prices";
 
 
-            if(!isDebuggable) {
+            if(isDebuggable) {
                 Logger.i(TAG, licenseMessage);
             }
             else {
