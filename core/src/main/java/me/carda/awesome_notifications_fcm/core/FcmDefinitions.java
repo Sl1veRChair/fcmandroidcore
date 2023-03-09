@@ -46,6 +46,7 @@ public interface FcmDefinitions {
     String CHANNEL_METHOD_IS_FCM_AVAILABLE = "isFirebaseAvailable";
     String CHANNEL_METHOD_SUBSCRIBE_TOPIC = "subscribeTopic";
     String CHANNEL_METHOD_UNSUBSCRIBE_TOPIC = "unsubscribeTopic";
+    String CHANNEL_METHOD_DELETE_TOKEN = "deleteToken";
     String CHANNEL_METHOD_SILENCED_CALLBACK = "silentCallbackReference";
     String CHANNEL_METHOD_DART_CALLBACK = "dartCallbackReference";
     String CHANNEL_METHOD_SHUTDOWN_DART = "shutdown";

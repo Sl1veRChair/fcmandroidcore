@@ -262,22 +262,26 @@ public class AwesomeNotificationsFcm
     private void assertFirebaseServiceEnabled() throws AwesomeNotificationsException {
         if (!firebaseEnabled)
             throw ExceptionFactory
-                    .getInstance()
-                    .createNewAwesomeException(
-                            TAG,
-                            ExceptionCode.CODE_INVALID_ARGUMENTS,
-                            "Firebase service is not available (check if you have google-services.json file)",
-                            ExceptionCode.DETAILED_INVALID_ARGUMENTS+".fcm.assertFirebaseServiceEnabled");
+                .getInstance()
+                .createNewAwesomeException(
+                    TAG,
+                    ExceptionCode.CODE_INVALID_ARGUMENTS,
+                    "Firebase service is not available (check if you have google-services.json file)",
+                    ExceptionCode.DETAILED_INVALID_ARGUMENTS+".fcm.assertFirebaseServiceEnabled");
     }
 
-    public void subscribeOnFcmTopic(String topicReference) throws AwesomeNotificationsException {
+    public void subscribeOnFcmTopic(
+            String topicReference
+    ) throws AwesomeNotificationsException {
         assertFirebaseServiceEnabled();
         FirebaseMessaging
                 .getInstance()
                 .subscribeToTopic(topicReference);
     }
 
-    public void unsubscribeOnFcmTopic(String topicReference) throws AwesomeNotificationsException {
+    public void unsubscribeOnFcmTopic(
+            String topicReference
+    ) throws AwesomeNotificationsException {
         assertFirebaseServiceEnabled();
         FirebaseMessaging
                 .getInstance()
@@ -323,12 +327,14 @@ public class AwesomeNotificationsFcm
     }
 
     @Override
-    public void onNewActionReceived(String eventName, ActionReceived actionReceived) {
+    public void onNewActionReceived(
+            String eventName,
+            ActionReceived actionReceived
+    ){
         if(
             actionReceived.createdSource != NotificationSource.Firebase ||
             actionReceived.originalIntent == null
-        )
-            return;
+        ) return;
 
         switch (eventName){
 
@@ -346,17 +352,22 @@ public class AwesomeNotificationsFcm
     }
 
     @Override
-    public boolean onNewActionReceivedWithInterruption(String eventName, ActionReceived actionReceived) {
+    public boolean onNewActionReceivedWithInterruption(
+            String eventName,
+            ActionReceived actionReceived
+    ){
         return false;
     }
 
     @Override
-    public void onNewNotificationReceived(String eventName, NotificationReceived notificationReceived) {
+    public void onNewNotificationReceived(
+            String eventName,
+            NotificationReceived notificationReceived
+    ){
         if(
             notificationReceived.createdSource != NotificationSource.Firebase ||
             notificationReceived.originalIntent == null
-        )
-            return;
+        ) return;
 
         switch (eventName){
 
@@ -370,6 +381,13 @@ public class AwesomeNotificationsFcm
                         .logNotificationForeground(notificationReceived.originalIntent);
                 break;
         }
+    }
+
+    public void deleteToken() throws AwesomeNotificationsException {
+        assertFirebaseServiceEnabled();
+        FirebaseMessaging
+                .getInstance()
+                .deleteToken();
     }
 
     public void dispose() {

@@ -42,26 +42,43 @@ public final class LicenseManager {
     {
         List<String> licenseKeys = FcmDefaultsManager.getLicenseKeys(context);
         if (licenseKeys == null) return false;
-        for (String licenseKey : licenseKeys){
-            if(StringUtils.getInstance().isNullOrEmpty(licenseKey))
-                return false;
-            try {
-                PublicKey publicKey = Crypto.getPublicKey();
-                if(publicKey == null) return false;
+
+        String packageVersion = "0.7.5";
+        try {
+            PublicKey publicKey = Crypto.getPublicKey();
+            if(publicKey == null) return false;
+
+            for (String licenseKey : licenseKeys){
+                if(StringUtils.getInstance().isNullOrEmpty(licenseKey))
+                    return false;
+
+                boolean isSingleVersion = false;
+                String base64Encoded;
+                if(licenseKey.startsWith("single:")){
+                    isSingleVersion = true;
+                    if(!licenseKey.startsWith("single:"+packageVersion+":")){
+                        return false;
+                    }
+                    base64Encoded = licenseKey
+                            .replaceFirst("single:[\\w\\.\\+]+:", "");
+                }
+                else {
+                    base64Encoded = licenseKey;
+                }
 
                 if(
                     assignerVerify(
                         AwesomeNotifications.getPackageName(context),
+                        isSingleVersion ? packageVersion+":" : "",
                         publicKey,
-                        Base64.decode(licenseKey, Base64.DEFAULT))
+                        Base64.decode(base64Encoded, Base64.DEFAULT))
                 ){
                     return true;
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
         return false;
     }
@@ -69,13 +86,15 @@ public final class LicenseManager {
     @NonNull
     private boolean assignerVerify(
             @NonNull String packageName,
+            @NonNull String packageVersion,
             @NonNull PublicKey publicKey,
             @NonNull byte[] signature
     ) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException
     {
         Signature publicSign = Signature.getInstance(Crypto.signProtocol);
         publicSign.initVerify(publicKey);
-        publicSign.update(packageName.getBytes(StandardCharsets.UTF_8));
+        publicSign.update((packageVersion+packageName)
+                .getBytes(StandardCharsets.UTF_8));
         return publicSign.verify(signature);
     }
 }
