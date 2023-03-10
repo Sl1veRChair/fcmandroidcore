@@ -38,7 +38,7 @@ public class FcmDefaultsModel extends AbstractModel {
         silentDataCallback    = getValueOrDefault(arguments, FcmDefinitions.SILENT_HANDLE, String.class, "0");
         reverseDartCallback   = getValueOrDefault(arguments, FcmDefinitions.DART_BG_HANDLE, String.class, "0");
         backgroundHandleClass = getValueOrDefault(arguments, Definitions.NOTIFICATION_BG_HANDLE_CLASS, String.class, null);
-        licenseKeys           = getValueOrDefault(arguments, FcmDefinitions.LICENSE_KEYS, List.class, null);
+        licenseKeys           = getValueOrDefaultList(arguments, FcmDefinitions.LICENSE_KEYS, null);
         return this;
     }
 
