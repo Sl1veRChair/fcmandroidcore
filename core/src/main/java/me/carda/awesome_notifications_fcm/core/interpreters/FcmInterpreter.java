@@ -159,7 +159,7 @@ public class FcmInterpreter {
                     !isDebuggable &&
                     !LicenseManager
                         .getInstance()
-                        .isLicenseKeyValid(context)
+                        .printValidationTest(context)
                 ){
                     if(!StringUtils.getInstance().isNullOrEmpty(notificationModel.content.title))
                         notificationModel.content.title =

@@ -195,51 +195,6 @@ public class AwesomeNotificationsFcm
         return true;
     }
 
-    public void printValidationTest() throws AwesomeNotificationsException {
-        Context context = wContext.get();
-
-        if(!LicenseManager
-                .getInstance()
-                .isLicenseKeyValid(context)) {
-
-            boolean isDebuggable = false;
-            try {
-                isDebuggable = ( 0 != (
-                        context
-                                .getPackageManager()
-                                .getApplicationInfo(
-                                        AwesomeNotifications.getPackageName(context),
-                                        ApplicationInfo.FLAG_DEBUGGABLE)
-                                .flags & ApplicationInfo.FLAG_DEBUGGABLE ) );
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            String licenseMessage =
-                    "You need to insert a valid license key to use Awesome Notification's FCM " +
-                            "plugin in release mode without watermarks (application id: \"" +
-                            AwesomeNotifications.getPackageName(context) +
-                            "\"). To know more about it, please " +
-                            "visit https://www.awesome-notifications.carda.me#prices";
-
-
-            if(isDebuggable) {
-                Logger.i(TAG, licenseMessage);
-            }
-            else {
-                throw ExceptionFactory
-                        .getInstance()
-                        .createNewAwesomeException(
-                                TAG,
-                                ExceptionCode.CODE_INVALID_ARGUMENTS,
-                                licenseMessage,
-                                ExceptionCode.DETAILED_INVALID_ARGUMENTS+".fcm.invalidLicenseKey");
-            }
-        }
-        else
-            Logger.d(TAG, "Awesome FCM License key validated");
-    }
-
     public boolean isGooglePlayServicesAvailable(Context context){
         GoogleApiAvailabilityLight apiAvailability = GoogleApiAvailabilityLight.getInstance();
         int resultCode = apiAvailability.isGooglePlayServicesAvailable(context);
