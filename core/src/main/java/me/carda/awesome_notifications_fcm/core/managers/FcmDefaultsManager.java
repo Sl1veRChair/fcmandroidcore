@@ -9,15 +9,15 @@ import java.util.List;
 
 import me.carda.awesome_notifications.core.AwesomeNotificationsExtension;
 import me.carda.awesome_notifications.core.exceptions.AwesomeNotificationsException;
-import me.carda.awesome_notifications.core.managers.SharedManager;
+import me.carda.awesome_notifications.core.managers.RepositoryManager;
 import me.carda.awesome_notifications.core.utils.StringUtils;
 import me.carda.awesome_notifications_fcm.core.FcmDefinitions;
 import me.carda.awesome_notifications_fcm.core.models.FcmDefaultsModel;
 
 public final class FcmDefaultsManager {
 
-    private static final SharedManager<FcmDefaultsModel> shared
-                    = new SharedManager<>(
+    private static final RepositoryManager<FcmDefaultsModel> shared
+                    = new RepositoryManager<>(
                             StringUtils.getInstance(),
                             "FcmDefaultsManager",
                             FcmDefaultsModel.class,
