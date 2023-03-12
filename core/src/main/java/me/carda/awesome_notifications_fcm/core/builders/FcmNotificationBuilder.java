@@ -97,6 +97,8 @@ public class FcmNotificationBuilder {
                 extractNotificationData(Definitions.NOTIFICATION_MODEL_SCHEDULE, localRemoteData);
         List<Map<String, Object>> parsedActionButtons =
                 extractNotificationDataList(Definitions.NOTIFICATION_MODEL_BUTTONS, localRemoteData);
+        Map<String, Object> parsedLocalizations =
+                extractNotificationData(Definitions.NOTIFICATION_MODEL_LOCALIZATIONS, localRemoteData);
 
         Map<String, Object> originalNotificationData =
                 extractFcmNotificationIntoAwesome(notificationId, remoteMessage, remoteNotification);
@@ -113,6 +115,9 @@ public class FcmNotificationBuilder {
 
         if(!ListUtils.isNullOrEmpty(parsedActionButtons))
             parsedRemoteMessage.put(Definitions.NOTIFICATION_MODEL_BUTTONS, parsedActionButtons);
+
+        if(!MapUtils.isNullOrEmpty(parsedLocalizations))
+            parsedRemoteMessage.put(Definitions.NOTIFICATION_MODEL_LOCALIZATIONS, parsedLocalizations);
 
         return parsedRemoteMessage;
     }
@@ -196,6 +201,7 @@ public class FcmNotificationBuilder {
         payload.remove(Definitions.NOTIFICATION_MODEL_CONTENT);
         payload.remove(Definitions.NOTIFICATION_MODEL_SCHEDULE);
         payload.remove(Definitions.NOTIFICATION_MODEL_BUTTONS);
+        payload.remove(Definitions.NOTIFICATION_MODEL_LOCALIZATIONS);
         payload.remove(FcmDefinitions.NOTIFICATION_MODEL_ANDROID);
         payload.remove(FcmDefinitions.NOTIFICATION_MODEL_IOS);
 
@@ -249,6 +255,30 @@ public class FcmNotificationBuilder {
                             exception);
         }
         return list;
+    }
+
+    private Map<String, Map<String, Object>> extractNotificationDataMap(
+            @NonNull String reference,
+            @NonNull Map<String, String> remoteData
+    ) throws AwesomeNotificationsException {
+        String jsonData = remoteData.get(reference);
+        Map<String, Map<String, Object>> map = null;
+        try {
+            if (jsonData != null) {
+                Type mapType = new TypeToken<Map<String, Map<String, Object>>>(){}.getType();
+                map = new Gson().fromJson(jsonData, mapType);
+            }
+        } catch (Exception exception) {
+            throw ExceptionFactory
+                    .getInstance()
+                    .createNewAwesomeException(
+                            TAG,
+                            ExceptionCode.CODE_INVALID_ARGUMENTS,
+                            "Invalid Firebase notification content "+reference,
+                            ExceptionCode.DETAILED_INVALID_ARGUMENTS+".fcm.extractNotificationDataMap",
+                            exception);
+        }
+        return map;
     }
 
     public Intent buildSilentIntentFromSilentModel(
