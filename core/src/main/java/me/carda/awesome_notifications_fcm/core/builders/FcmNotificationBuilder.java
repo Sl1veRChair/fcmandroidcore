@@ -42,14 +42,14 @@ public class FcmNotificationBuilder {
     // *************** DEPENDENCY INJECTION CONSTRUCTOR ***************
 
     FcmNotificationBuilder(
-        @NonNull StringUtils stringUtils
+            @NonNull StringUtils stringUtils
     ){
         this.stringUtils = stringUtils;
     }
 
     public static FcmNotificationBuilder getNewBuilder() {
         return new FcmNotificationBuilder(
-                        StringUtils.getInstance());
+                StringUtils.getInstance());
     }
 
     // ****************************************************************
