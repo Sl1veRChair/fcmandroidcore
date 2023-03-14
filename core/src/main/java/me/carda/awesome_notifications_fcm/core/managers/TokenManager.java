@@ -33,7 +33,8 @@ public class TokenManager {
     // ********************************************************
 
     public void setLastToken(@Nullable String lastToken) {
-        if(this.lastToken.equals(lastToken)) return;
+        if(this.lastToken == null && lastToken == null) return;
+        if(this.lastToken != null && this.lastToken.equals(lastToken)) return;
         this.lastToken = lastToken;
 
         AwesomeFcmEventsReceiver
