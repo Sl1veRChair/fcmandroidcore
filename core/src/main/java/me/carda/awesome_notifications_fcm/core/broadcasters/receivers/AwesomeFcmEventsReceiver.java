@@ -1,5 +1,7 @@
 package me.carda.awesome_notifications_fcm.core.broadcasters.receivers;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +85,7 @@ public class AwesomeFcmEventsReceiver {
 
     // ********************************************************
 
-    public void addNewFcmTokenEvent(String token) {
+    public void addNewFcmTokenEvent(@Nullable String token) {
         if(AwesomeNotifications.debug && notificationTokenListeners.isEmpty())
             Logger.e(TAG, "New fcm token event ignored, as there is no listeners waiting for new fcm events");
 
@@ -91,7 +93,7 @@ public class AwesomeFcmEventsReceiver {
             listener.onNewFcmTokenReceived(token);
     }
 
-    public void addNewNativeTokenEvent(String token) {
+    public void addNewNativeTokenEvent(@Nullable String token) {
         if(AwesomeNotifications.debug && notificationTokenListeners.isEmpty())
             Logger.e(TAG, "New native token event ignored, as there is no listeners waiting for new fcm events");
 

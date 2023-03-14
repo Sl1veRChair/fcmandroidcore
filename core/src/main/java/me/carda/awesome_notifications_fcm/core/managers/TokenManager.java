@@ -32,9 +32,9 @@ public class TokenManager {
 
     // ********************************************************
 
-    public void setLastToken(@NonNull String lastToken) {
-       this.lastToken = lastToken;
-       if(!this.recovered) return;
+    public void setLastToken(@Nullable String lastToken) {
+        if(this.lastToken.equals(lastToken)) return;
+        this.lastToken = lastToken;
 
         AwesomeFcmEventsReceiver
                 .getInstance()
@@ -46,7 +46,6 @@ public class TokenManager {
     }
 
     public void recoverLostFcmToken(){
-        recovered = true;
         if (this.lastToken == null) return;
 
         AwesomeFcmEventsReceiver

@@ -1,8 +1,8 @@
 package me.carda.awesome_notifications_fcm.core.listeners;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public interface AwesomeFcmTokenListener {
-    public void onNewFcmTokenReceived(@NonNull String token);
-    public void onNewNativeTokenReceived(@NonNull String token);
+    void onNewFcmTokenReceived(@Nullable String token);
+    void onNewNativeTokenReceived(@Nullable String token);
 }

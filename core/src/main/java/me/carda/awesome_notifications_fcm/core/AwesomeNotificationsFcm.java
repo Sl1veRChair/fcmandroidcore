@@ -226,21 +226,23 @@ public class AwesomeNotificationsFcm
     }
 
     public void subscribeOnFcmTopic(
-            String topicReference
+           @NonNull String topicReference
     ) throws AwesomeNotificationsException {
         assertFirebaseServiceEnabled();
         FirebaseMessaging
                 .getInstance()
                 .subscribeToTopic(topicReference);
+        Logger.d(TAG, "Subscribed to topic "+topicReference );
     }
 
     public void unsubscribeOnFcmTopic(
-            String topicReference
+            @NonNull String topicReference
     ) throws AwesomeNotificationsException {
         assertFirebaseServiceEnabled();
         FirebaseMessaging
                 .getInstance()
                 .unsubscribeFromTopic(topicReference);
+        Logger.d(TAG, "Unsubscribed from topic "+topicReference );
     }
 
 
@@ -340,9 +342,14 @@ public class AwesomeNotificationsFcm
 
     public void deleteToken() throws AwesomeNotificationsException {
         assertFirebaseServiceEnabled();
+
         FirebaseMessaging
                 .getInstance()
                 .deleteToken();
+
+        TokenManager
+                .getInstance()
+                .setLastToken(null);
     }
 
     public void dispose() {
